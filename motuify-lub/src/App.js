@@ -5,7 +5,7 @@ import {getTokenFromSpotifyResponse} from "./spotifyPage/spotify";
 import SpotifyWebApi from "spotify-web-api-js";
 import Player from "./pages/Player"
 import {useSetRecoilState} from "recoil"
-import {globaluser,globalplaylists} from "./recoiled/recoil"
+import {globaluser,globalplaylists,globaldiscover} from "./recoiled/recoil"
 
 const spotify = new SpotifyWebApi();
 
@@ -13,6 +13,7 @@ function App() {
 
   const setLoggedinUser = useSetRecoilState(globaluser);
   const setUserPlaylist = useSetRecoilState(globalplaylists);
+  const setDiscoverWeekly = useSetRecoilState(globaldiscover);
 
 
   const [token, setToken] = useState(null);
@@ -37,9 +38,13 @@ function App() {
     .then((playlist)=>{
       console.log(playlist)
       setUserPlaylist(playlist)
-    })
-        
-    .catch(console.error())
+    }).catch(console.error())
+
+    spotify.getPlaylist('5fPoHZ11Ce1OKfn1eWvLbN')
+    .then((generic)=>{
+      console.log("generic",generic)
+      setDiscoverWeekly(generic);
+    }).catch(console.error())
 
   }
   }, [])

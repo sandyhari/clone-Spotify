@@ -22,3 +22,7 @@ export const globaltoken = atom({
     key: 'globaltoken',
     default:null,
 });
+export const globaldiscover = atom({
+    key: 'globaldiscover',
+    default:null,
+});
